@@ -165,6 +165,49 @@ def add_task(request: Request, title: str = Form(...), description: str = Form(.
     db.close()
     return RedirectResponse("/", status_code=302)
 
+@app.get("/edit/{task_id}")
+def edit_page(request: Request, task_id: int):
+    user_id = get_current_user(request)
+    if not user_id:
+        return RedirectResponse("/login", status_code=302)
+
+    db = SessionLocal()
+    task = db.query(Task).filter(Task.id == task_id, Task.user_id == user_id).first()
+    db.close()
+    
+    if not task:
+        return RedirectResponse("/", status_code=302)
+    
+    return templates.TemplateResponse(
+        request=request,
+        name="edit_task.html",
+        context={"task": task_to_dict(task)}
+    )
+
+@app.post("/update/{task_id}")
+def update_task(
+    request: Request, 
+    task_id: int, 
+    title: str = Form(...), 
+    description: str = Form(...),
+    status: str = Form(...)
+):
+    user_id = get_current_user(request)
+    if not user_id:
+        return RedirectResponse("/login", status_code=302)
+
+    db = SessionLocal()
+    task = db.query(Task).filter(Task.id == task_id, Task.user_id == user_id).first()
+    
+    if task:
+        task.title = title
+        task.description = description
+        task.status = status
+        db.commit()
+    
+    db.close()
+    return RedirectResponse("/", status_code=302)
+
 @app.get("/delete/{task_id}")
 def delete_task(request: Request, task_id: int):
     user_id = get_current_user(request)

@@ -1,46 +1,93 @@
 <!DOCTYPE html>
+
 <html>
+
 <head>
+
     <title>Study Planner</title>
+
     <link rel="stylesheet" href="/static/style.css">
+
 </head>
+
 <body>
+
+
 
 <div class="container">
 
+
+
     <div class="header">
+
         <h1>📚 Study Planner</h1>
+
         <div class="header-right">
+
             <span>👤 {{ username }}</span>
+
             <a class="btn-logout" href="/logout">Logout</a>
+
         </div>
+
     </div>
+
+
 
     <a class="btn" href="/add">+ Add New Task</a>
 
+
+
     <div class="task-list">
+
         {% if tasks %}
+
             {% for task in tasks %}
+
             <div class="task-card {{ task.status | lower }}">
+
                 <h3>{{ task.title }}</h3>
+
                 <p>{{ task.description }}</p>
+
+
 
                 <span class="badge {{ task.status | lower }}">{{ task.status }}</span>
 
+
+
                 <div class="actions">
+
+                    <a href="/edit/{{ task.id }}" class="edit">✏️ Edit</a>
+
                     {% if task.status != "Completed" %}
+
                     <a href="/done/{{ task.id }}" class="done">✔ Done</a>
+
                     {% endif %}
+
                     <a href="/delete/{{ task.id }}" class="delete">🗑 Delete</a>
+
                 </div>
+
             </div>
+
             {% endfor %}
+
         {% else %}
+
             <p class="empty">No tasks yet. Add one!</p>
+
         {% endif %}
+
     </div>
+
+
 
 </div>
 
+
+
 </body>
+
 </html>
