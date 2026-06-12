@@ -1,23 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Add Task</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Task | TaskFlow</title>
+    <!-- Google Fonts for clean typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (free icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 
-<div class="container">
-    <h1>➕ Add Task</h1>
+<div class="card">
+    <div class="card-header">
+        <div class="title-badge">
+            <i class="fas fa-tasks"></i> new task
+        </div>
+        <h1>
+            <i class="fas fa-plus-circle"></i> 
+            Add Task
+        </h1>
+        <p><i class="fas fa-pen"></i> Fill in the details below to create your task</p>
+    </div>
 
-    <form method="post" action="/add" class="form">
-        <input type="text" name="title" placeholder="Task Title" required>
-        <textarea name="description" placeholder="Task Description" required></textarea>
+    <div class="form-body">
+        <form method="post" action="/add" autocomplete="off">
+            <div class="input-group">
+                <label for="taskTitle">
+                    <i class="fas fa-heading"></i> Task Title 
+                    <span class="required-star">*</span>
+                </label>
+                <input type="text" 
+                       id="taskTitle" 
+                       name="title" 
+                       placeholder="e.g., Complete design review" 
+                       required>
+                <div class="field-hint">
+                    <i class="fas fa-pen-fancy"></i> Short & descriptive
+                </div>
+            </div>
 
-        <button type="submit">Add Task</button>
-    </form>
+            <div class="input-group">
+                <label for="taskDesc">
+                    <i class="fas fa-align-left"></i> Description 
+                    <span class="required-star">*</span>
+                </label>
+                <textarea id="taskDesc" 
+                          name="description" 
+                          placeholder="Add steps, notes, or any relevant information..." 
+                          required></textarea>
+                <div class="field-hint">
+                    <i class="fas fa-info-circle"></i> Provide enough detail for clarity
+                </div>
+            </div>
 
-    <a href="/" class="back">⬅ Back</a>
+            <button type="submit" class="btn-add">
+                <span>Create Task</span>
+                <i class="fas fa-check-circle"></i>
+            </button>
+        </form>
+    </div>
+
+    <div class="card-footer">
+        <a href="/" class="back-btn">
+            <i class="fas fa-arrow-left"></i> 
+            Back to tasks
+        </a>
+    </div>
 </div>
-
 </body>
 </html>
